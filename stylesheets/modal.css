@@ -1,0 +1,90 @@
+
+
+/**********************************************************************************************
+ *
+ *	WRAPPER
+ *
+ ***/
+
+.wrapper{
+	padding-bottom: 500px;
+}
+
+.overlay h2{
+	margin-top: 0;
+}
+
+.overlay p{
+	margin-top: 0;
+	font-style: italic;
+}
+
+/**********************************************************************************************
+ *
+ *	OVERLAY OK
+ *
+ ***/
+
+.overlay .ok, .overlay .login{
+	display: block;
+	margin: 15px auto 0 auto;
+	padding: 0;
+	width: 100px;
+	height: 30px;
+	line-height: 29px;
+	
+	color: white;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+	
+	background: #424242;
+	
+	-o-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.overlay .login{
+	margin: 0 0 0 30%;
+}
+
+.overlay .ok:hover, .overlay .login:hover{
+	background: #555555;
+}
+
+
+.overlay label{
+	float: left;
+	width: 26%;
+	margin-right: 4%;
+	height: 32px;
+	line-height: 32px;
+}
+
+.overlay input{
+	float: left;
+	width: 65%;
+	height: 30px;
+	line-height: 30px;
+}
+
+.overlay .error{
+	background: #eeeeee;
+	padding: 10px;
+	font-style: italic;
+	color: red;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 1.15em;
+	border-radius: 5px;
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>jQuery - SimpleOverlay</title>
+	
+	<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<link rel="stylesheet" href="stylesheets/overlay.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	
+	<script src="js/modernizr-2.0.6.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery-1.6.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">jQuery.noConflict();</script>
+	<script src="js/jquery.easing.1.3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.simple.overlay.js" type="text/javascript" charset="utf-8"></script>
+	
+	
+	
+</head>
+<body>
+	
+
+	<div class="wrapper">
+		<h1>jQuery SimpleOverlay</h1>
+		<ul id="nav">
+			<li><a href="index.html" title="Home">Home</a></li>
+			<li><a href="minimum.html" title="Minimum requirement">Minimum requirement</a></li>
+			<li><a href="modal.html" title="Modals">Modals</a></li>
+		</ul>
+		
+		<h2>Minimum mark up required</h2>
+		
+		<p>The minimum mark up required consists of an anchor tag used as the trigger. An element to be used as the overlay can also be added to the document as a direct child of the body element. If this element is not present the plugin will automatically add one with the default settings. Please, refer to the stylesheet 'overlay.css' for comments on the default styling.</p>
+		
+		<pre>
+			<table>
+				<td class="line-numbers"><br />1</td>
+				<td class="code">
+	&lt;a href="#" title="title goes here"&gt;text goes here&lt;/a&gt;
+	</td>
+			</table>
+		</pre>
+		
+		<h2>Mark up generated on the initialization of the plugin</h2>
+		
+		<p>
+			When the script is initialised the plugin will query the DOM for the overlay using the value in the property named 'overlayQuery'(default:'.overlay') passed in as a parameter.
+			<br />
+			If the overlay is not found in the DOM an instance will be created with the default settings. The default mark up is as follows:
+		</p>
+		
+		<pre>
+			<table>
+				<td class="line-numbers"><br />1<br />2<br />3<br />4<br />5</td>
+				<td class="code">
+	&lt;div id="fallback"&gt;&lt;/div&gt;
+	&lt;div class="overlay"&gt;
+		&lt;div class="content"&gt;&lt;/div&gt;
+		&lt;a class="close" href="#" title="close"&gt;x&lt;/a&gt;
+	&lt;/div&gt;	
+				</td>
+			</table>
+		</pre>
+		
+		<p>When generating the default mark up the plugin adds two elements as the children of the overlay element. The first element has a default class of 'content' and is used to hold the content of the overlay which can be inserted via the api. The second element is an anchor tag which is used to close the overlay when open.</p>
+		
+		
+		<h2>Script used to initialize the plugin</h2>
+		
+		<pre>
+			<table>
+				<td class="line-numbers">1<br />2<br />3<br /></td>
+				<td class="code">jQuery(document).ready(function($){
+	&nbsp;&nbsp;&nbsp;$([query string]).SimpleOverlay();
+});</td>
+			</table>
+		</pre>
+		
+		
+		<h2>Properties supported in the initialisation</h2>
+		
+		<p>The script has a number of properties that can be set at initialisation to customise the behaviour of the overlay. The properties are passed as arguments in the form of an object literal. They are as follows:</p>
+		
+		<table class="data">
+			<thead>
+				<tr>
+					<th width="160">Title</th>
+					<th>Description</th>
+					<th width="120">Type</th>
+					<th>Default value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>duration</strong></td>
+					<td>The duration in milliseconds of the animations applied to the overlay</td>
+					<td>Number</td>
+					<td>300</td>
+				</tr>
+				<tr>
+					<td><strong>effect</strong></td>
+					<td>The effect used in the animation</td>
+					<td>String</td>
+					<td>linear</td>
+				</tr>
+				<tr>
+					<td><strong>transited</strong></td>
+					<td>Used to detect whether the browser supports css3 transitions and set the animations to use this method</td>
+					<td>function</td>
+					<td>a function which uses Modernizr to detect support for css3 transitions</td>
+				</tr>
+				<tr>
+					<td><strong>fallbackId</strong></td>
+					<td>The id attribute of the fallback</td>
+					<td>String</td>
+					<td>fallback</td>
+				</tr>
+				<tr>
+					<td><strong>fallbackOpacity</strong></td>
+					<td>The opacity of the fallback</td>
+					<td>Number[0 - 1]</td>
+					<td>0.4</td>
+				</tr>
+				<tr>
+					<td><strong>clickableFallback</strong></td>
+					<td>Indicates whether clicking the fallback hides the overlay</td>
+					<td>Boolean</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td><strong>overlayQuery</strong></td>
+					<td>Query string used to search for the overlay in the DOM when intialising</td>
+					<td>String</td>
+					<td>.overlay</td>
+				</tr>
+				<tr>
+					<td><strong>overlayClass</strong></td>
+					<td>Class added to the overlay when initialising</td>
+					<td>String</td>
+					<td>overlay</td>
+				</tr>
+				<tr>
+					<td><strong>overlayDefaultTop</strong></td>
+					<td>The minimum top position of the overlay.(For when the viewport is smaller than the overlay)</td>
+					<td>Number</td>
+					<td>20</td>
+				</tr>
+				<tr>
+					<td><strong>overlayDefaultLeft</strong></td>
+					<td>The minimum left position of the overlay.(For when the viewport is narrower than the overlay)</td>
+					<td>Number</td>
+					<td>20</td>
+				</tr>
+				<tr>
+					<td><strong>overlayFixedTop</strong></td>
+					<td>Indicates whether the overlay will have fixed position or not. If set to true the value set with the property 'overlayDefaultTop' will be used.</td>
+					<td>Boolean</td>
+					<td>False</td>
+				</tr>
+				<tr>
+					<td><strong>contentClass</strong></td>
+					<td>The class added to the content element when initialising the script where the default overlay element has not been added to the DOM previously.</td>
+					<td>String</td>
+					<td>content</td>
+				</tr>
+				<tr>
+					<td><strong>hasCloseBtn</strong></td>
+					<td>Indicates whether the overlay has a close button.</td>
+					<td>Boolean</td>
+					<td>True</td>
+				</tr>
+				<tr>
+					<td><strong>closeBtnClass</strong></td>
+					<td>The class added to the close button when initialising the script where the default overlay element has not been added to the DOM previously.</td>
+					<td>String</td>
+					<td>close</td>
+				</tr>
+				<tr>
+					<td><strong>closeBtnText</strong></td>
+					<td>The text added to the close button when initialising the script where the default overlay element has not been added to the DOM previously.</td>
+					<td>String</td>
+					<td>x</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h2>Methods supported in the initialisation</h2>
+		
+		<p>The script has a number of methods that can be set at initialisation and help customize the behavior and functionality of the overlay further.  The methods are passed as arguments in the form of an object literal. They are as follows:</p>
+		
+		<table class="data">
+			<thead>
+				<tr>
+					<th width="140">Title</th>
+					<th>Description</th>
+					<th width="90">Context</th>
+					<th width="120">Return Type</th>
+					<th width="180">Default value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>onInitialize</strong></td>
+					<td>Run when the plugin has been initialised.</td>
+					<td> - </td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>onClick</strong></td>
+					<td>Run when the element is clicked. If this functions returns true the overlay is displayed. If it returns false the overlay is not displayed.</td>
+					<td>The element clicked</td>
+					<td>Boolean True or False</td>
+					<td>function(){return true;}</td>
+				</tr>
+				<tr>
+					<td><strong>onCloseBtnClick</strong></td>
+					<td>Called when the close button is clicked. If it returns true the overlay is closed. If returns false the overlay stays open.</td>
+					<td>-</td>
+					<td>Boolean True or False</td>
+					<td>function(){return true;}</td>
+				</tr>
+				<tr>
+					<td><strong>onFallbackClick</strong></td>
+					<td>Called when the fallback is clicked. If it returns true the overlay is closed. If returns false the overlay stays open.</td>
+					<td>-</td>
+					<td>Boolean True or False</td>
+					<td>function(){return true;}</td>
+				</tr>
+				<tr>
+					<td><strong>beforeShow</strong></td>
+					<td>Run before displaying the overlay.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>afterShow</strong></td>
+					<td>Run after displaying the overlay.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>beforeHide</strong></td>
+					<td>run before hiding the overlay.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>afterHide</strong></td>
+					<td>run after hiding the overlay.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>beforeShowContent</strong></td>
+					<td>Run before showing the content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>afterShowContent</strong></td>
+					<td>Run after showing the content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>beforeHideContent</strong></td>
+					<td>Run before hiding the content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>afterHideContent</strong></td>
+					<td>Run after hiding the content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>beforeResize</strong></td>
+					<td>Run before resizing the overlay.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>afterResize</strong></td>
+					<td>Run after resizing the overlay.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>beforeSetContent</strong></td>
+					<td>Run before setting the content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>afterSetContent</strong></td>
+					<td>Run after setting the content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>beforeAddContent</strong></td>
+					<td>Run before adding content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+				<tr>
+					<td><strong>afterAddContent</strong></td>
+					<td>Run after adding content.</td>
+					<td>-</td>
+					<td>null</td>
+					<td>function(){}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h2>Methods supported in the API</h2>
+		
+		<p>The API has a number of methods that can be used to manipulate the behavior of the overlay as well as setting its content. The methods can be called via a stored reference of the overlay. They are as follows:</p>
+		
+		<table class="data">
+			<thead>
+				<tr>
+					<th width="200">Title</th>
+					<th>Description</th>
+					<th width="380">Parameters</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>show</strong></td>
+					<td>Displays the overlay</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>hide</strong></td>
+					<td>Hides the overlay</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>disableClickableFallback</strong></td>
+					<td>Disables the click event on the fallback</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>enableClickableFallback</strong></td>
+					<td>Enables the click event on the fallback</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>enableClose</strong></td>
+					<td>Enables the close button on the overlay</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>disableClose</strong></td>
+					<td>Disables the close button on the overlay</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>showCloseButton</strong></td>
+					<td>Displays the close button</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>hideCloseButton</strong></td>
+					<td>Hides the close button</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>resize</strong></td>
+					<td>Resizes the overlay</td>
+					<td>
+						Object literal which accepts the following properties:
+						<br />
+						<br /><strong><em>width</em></strong>: number as the width of the content area
+						<br /><strong><em>height</em></strong>: number as the height of the cotent area
+						<br /><strong><em>positioning</em></strong>: boolean which determines whether the position of the overlay is to be refreshed
+						<br /><strong><em>animate</em></strong>: boolean which indicates whether the transition is to be animated
+					</td>
+				</tr>
+				<tr>
+					<td><strong>hideContent</strong></td>
+					<td>Hides the content area.</td>
+					<td>
+						Object literal which accepts the following properties:
+						<br />
+						<br /><strong><em>animate</em></strong>: boolean which indicates whether the transition is to be animated
+					</td>
+				</tr>
+				<tr>
+					<td><strong>showContent</strong></td>
+					<td>Shows the content area.</td>
+					<td>
+						Object literal which accepts the following properties:
+						<br />
+						<br /><strong><em>animate</em></strong>: boolean which indicates whether the transition is to be animated
+					</td>
+				</tr>
+				<tr>
+					<td><strong>setContent</strong></td>
+					<td>Sets the contents of the content area.</td>
+					<td>A String as HTML or a snippet of HTML code.</td>
+				</tr>
+				<tr>
+					<td><strong>addContent</strong></td>
+					<td>Adds content of the content area</td>
+					<td>A String as HTML or a snippet of HTML code.</td>
+				</tr>
+				<tr>
+					<td><strong>getContentRef</strong></td>
+					<td>Returns a reference to the content element.</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><strong>getMaxContentDims</strong></td>
+					<td>Returns the maximum allowable dimensions of the content area as an object literal with the properties 'width' and 'height'.</td>
+					<td>-</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		
+	</div>
+
+</body>
+</html>

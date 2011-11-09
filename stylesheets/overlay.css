@@ -1,0 +1,131 @@
+
+
+
+/**********************************************************************************************
+ *
+ *	FALLBACK
+ *
+ ***/
+
+#fallback{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 998;
+	background: black;
+	
+}
+
+.js #fallback{/* When javascript is enabled */
+	
+	display: none; /* It must be initially hidden */
+}
+
+
+/**********************************************************************************************
+ *
+ *	OVERLAY
+ *
+ *	
+ *
+ ***/
+
+.overlay{
+	width: 400px; /* Initial dimensions */
+	
+	
+	margin: 20px auto; /* The initial state of the overlay is static and centered on the page */
+	padding: 10px;
+	
+	background: white;
+	
+	-o-box-shadow: 0 0 10px rgba(0,0,0,0.7);
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.7);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.7);
+	box-shadow: 0 0 10px rgba(0,0,0,0.7);
+	
+	-o-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.js .overlay{
+	position: absolute; /* By adding a class of 'js' to a top level element with javascript the positioning is changed. This implementation does it with Modernizr */
+	top: 50%;
+	left: 50%;
+	z-index: 999;
+	
+	margin: 0;
+	
+	display: none;
+}
+
+/**********************************************************************************************
+ *
+ *	CONTENT
+ *
+ *	
+ *
+ ***/
+
+.overlay .content{
+	padding: 1px 0;
+	margin: 0;
+}
+
+
+/**********************************************************************************************
+ *
+ *	LOADER
+ *
+ ***/
+
+.overlay .loader{
+	
+}
+
+/**********************************************************************************************
+ *
+ *	CLOSE BUTTON
+ *
+ ***/
+
+.overlay .close{
+	display: block;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	
+	height: 25px;
+	width: 25px;
+	
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 24px;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+	
+	background: #444444;
+	
+	-o-border-radius: 0 0 0 5px;
+	-webkit-border-radius: 0 0 0 5px;
+	-moz-border-radius: 0 0 0 5px;
+	border-radius: 0 0 0 5px;
+}
+
+.overlay .close:hover{
+	background: #222222;
+}
+
+
+
+
+
+
+
+
+

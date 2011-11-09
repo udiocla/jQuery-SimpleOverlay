@@ -1,0 +1,186 @@
+/*
+
+	DEFAULT STYLE
+
+*/ 
+
+
+html{
+	font-size: 62.5%;	
+}
+
+body{
+	font-size: 1.4em;
+	line-height: 1.6em;
+	margin: 0;
+	padding: 1px 0;
+	background: url('../images/siteBkg.gif');
+	font-family: Verdana,sans-serif;
+}
+
+.wrapper{
+	width: 910px;
+	padding: 25px;
+	margin: 20px auto;
+	
+	background: #eeeeee;
+	
+	-o-border-radius: 15px 15px 15px 15px;
+	-webkit-border-radius: 15px 15px 15px 15px;
+	-moz-border-radius: 15px 15px 15px 15px;
+	border-radius: 15px 15px 15px 15px;
+	
+	-o-box-shadow:  inset 0 0 2px rgba(256, 256, 256, 0.9), 1px 4px 15px rgba(0, 0, 0, 0.8);
+	-webkit-box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.8);
+	box-shadow: inset 0 0 3px rgba(256, 256, 256, 1), 1px 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+/**********************************************************************************************
+ *
+ *	GENERIC
+ *
+ ***/
+
+/* float clearer cross-browser */ .hasFloat:after{content: '.';height: 0;display: block;clear: both;visibility: hidden;}*:first-child+html .hasFloat{min-height: 1px;}* html .hasFloat{height: 1%;}
+
+
+table{
+	border-collapse: collapse;
+	width: 100%;
+}
+
+pre{
+	display: block;
+	padding: 0 30px;
+	margin: 0;
+}
+
+pre table{
+	margin: 0;
+	padding: 0;
+	border: 1px solid #999999;
+	background: #efefef;
+	width: 100%;
+}
+
+pre table{
+	
+}
+
+pre table td{
+	vertical-align: top;
+	margin: 0;
+	padding: 0;
+	line-height: 1.8em;
+}
+
+pre .line-numbers{
+	width: 3%;
+	padding-right: 5px;
+	background: #cccccc;
+	color: blue;
+	text-align: right;
+	font-style: italic;
+	font-weight: bold;
+}
+
+pre .code{
+	color: black;
+	padding-left: 15px;
+	text-align: left;
+}
+
+table.data{
+	margin: 0 0 40px 0;
+}
+
+table.data th, table.data td{
+	vertical-align: top;
+	padding: 4px 5px;
+	border: 1px solid #cccccc;
+}
+
+table.data th{
+	background: #cccccc;
+	color: white;
+	text-align: left;
+}
+
+table.data td{
+	
+	font-size: 0.95em;
+	line-height: 1.5em;
+	
+	
+}
+
+
+/**********************************************************************************************
+ *
+ *	TYPOGRAPHY
+ *
+ ***/
+
+h1{
+	margin: 0 0 20px 0;
+	font-family: "Myriad Pro","Gill Sans","Gill Sans MT",Calibri,sans-serif;
+	font-weight: bold;
+	font-size: 2.3em;
+	
+	-o-text-shadow: 0 1px 1px #ffffff;
+	-webkit-text-shadow: 0 1px 1px #ffffff;
+	-moz-text-shadow: 0 1px 1px #ffffff;
+	text-shadow: 0 1px 1px #ffffff;
+}
+
+p.legend{
+	color: #333333;
+	font-size: 0.8em;
+	font-style: italic;
+	padding-left: 20px;
+	background: transparent url('../images/icon-magnifier.gif') no-repeat left center;
+}
+
+
+
+
+/**********************************************************************************************
+ *
+ *	NAV
+ *
+ ***/
+
+#nav{
+	margin: 15px -15px;
+	padding: 10px 15px;
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+}
+
+#nav li{
+	list-style-type: none;
+	display: inline;
+	margin: 0 10px 0 0;
+	padding: 0;
+}
+
+#nav li a{
+	margin: 0;
+	padding: 3px 10px;
+	color: white;
+	text-decoration: none;
+	background: #333333;
+	border: 1px solid #333333;
+	line-height: 40px;
+	
+	-o-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#nav li a:hover{
+	background: #555555;
+	
+}
