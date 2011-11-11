@@ -352,7 +352,12 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 		getWindowSpecs();//Get window specs
 		getBodSpecs();//Get body specs
 		
-		var pos = getOverlayPos(s.width,s.height);//Calculate overlay position
+		var diff = {
+			horizontal: (overlay.outerWidth() - overlay.width()),
+			vertical: (overlay.outerWidth() - overlay.width())
+		}
+		
+		var pos = getOverlayPos((s.width + diff.horizontal),(s.height + diff.vertical));//Calculate overlay position
 		
 		if(s.positioning){//If the position is also to be adjusted
 			var style = {
@@ -371,14 +376,15 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 		anime.call(overlay,{
 			style: style,
 			duration: ((s.animate) ? o.duration : 0),
-			after: afterResizeOverlayAnimation
+			after: o.afterResize
 		});
 	}
-	
+	/*
 	function afterResizeOverlayAnimation(){//Call this after the animation to resize the overlay
 		showCloseBtn();
 		o.afterResize();
 	}
+	*/
 	
 // ---------------------------------------------------------------------------------------------------	Content
 
@@ -486,10 +492,18 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 	}
 	
 	function resize(settings){//Resizes
-		hideCloseBtn();//Hide close button
+		var s = $.extend({
+			hideCloseBtn: true
+		},settings);
+		
 		o.beforeResize();
-		resizeContent(settings);
-		resizeOverlay(settings);
+		resizeContent(s);
+		resizeOverlay(s);
+		
+		if(s.hideCloseBtn){
+			hideCloseBtn();
+			setTimeout(showCloseBtn,o.duration);
+		}
 	}
 	
 	function refresh(){//Refreshes the positioning and dimensions of the elements
