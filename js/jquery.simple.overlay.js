@@ -44,6 +44,7 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 		
 //------------------------------------------------------ Settings for content
 
+		contentQuery: '.content',
 		contentClass: 'content',	//Use this as the class of the content area
 		
 //------------------------------------------------------ Settings for close
@@ -154,16 +155,21 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 // ---------------------------------------------------------------------------------------------------	Fallback
 
 	function getFallback(){//Gets fallback
-		fallback = $('<div />')
-			.attr({
-				id: o.fallbackId
-			})
-			.click(function(){
-				if(o.clickableFallback && o.onFallbackClick()){//If click is enabled and the click call has been successful
-					hide();
-				}
-			})
-			.appendTo(document.body);//Add fallback to body
+		fallback = $('#' + o.fallbackId);
+		if(fallback.length == 0){//If fallback has not been set
+			fallback = $('<div />')
+				.attr({
+					id: o.fallbackId
+				})
+				.appendTo(document.body);//Add fallback to body;
+		}
+		
+		fallback.click(function(){
+			if(o.clickableFallback && o.onFallbackClick()){//If click is enabled and the click call has been successful
+				hide();
+			}
+		});
+			
 	}
 	
 	function resizeFallback(){//Resizes fallback
@@ -178,9 +184,11 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 			var height = bod.height;//Use the body height
 		}
 		
+		var fHeight = fallback.height();
+		
 		fallback.css({//Set dimensions
 			width: bod.width,
-			height: height
+			height: (fHeight < height) ? height : fHeight
 		});
 	}
 	
@@ -297,18 +305,31 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 		var positionOverlay = function(){
 			var pos = getOverlayPos(overlay.outerWidth(),overlay.outerHeight());
 			overlay.css({margin: 0});
-			anime.call(overlay,{
-				style: {top: pos.top,left: pos.left}
-			});
+			if(o.overlayFixedTop){
+				anime.call(overlay,{
+					style: {left: pos.left}
+				});
+			} else {
+				anime.call(overlay,{
+					style: {top: pos.top,left: pos.left}
+				});
+			}
 		};
 	} else {
 		var positionOverlay = function(){
 			var pos = getOverlayPos(overlay.outerWidth(),overlay.outerHeight());
-			overlay.css({
-				margin: 0,
-				top: pos.top,
-				left: pos.left
-			});
+			if(o.overlayFixedTop){
+				overlay.css({
+					margin: 0,
+					left: pos.left
+				});
+			} else {
+				overlay.css({
+					margin: 0,
+					top: pos.top,
+					left: pos.left
+				});
+			}
 		};
 	}	
 		
@@ -322,8 +343,7 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 		
 		var minTop = win.scrollTop + o.overlayDefaultTop;
 		
-		var top = (win.scrollTop + (nHeight / 2)) - (height / 1.5);//Calculate top position
-		
+		var top = (win.scrollTop + (nHeight / 2)) - (height / 2);//Calculate top position
 		if(o.overlayFixedTop || top < minTop){//If the overlay is to have its top position fixed or the top position is less than the minimum top position
 			top = minTop;//Use the minimum top position
 		}
@@ -379,17 +399,11 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 			after: o.afterResize
 		});
 	}
-	/*
-	function afterResizeOverlayAnimation(){//Call this after the animation to resize the overlay
-		showCloseBtn();
-		o.afterResize();
-	}
-	*/
 	
 // ---------------------------------------------------------------------------------------------------	Content
 
 	function getContent(){//Gets or creates the content area
-		content = overlay.find('.' + o.contentClass);
+		content = overlay.find(o.contentQuery);
 		
 		if(content.length == 0){//If overlay has not been set
 			content = $('<div />')
@@ -531,6 +545,11 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 		return this;
 	};
 	
+	this.refresh = function(){
+		refresh();
+		return this;
+	};
+	
 	this.disableClickableFallback = function(){
 		o.clickableFallback = false;//Make fallback unclickable
 		return this;
@@ -619,7 +638,7 @@ $.fn.SimpleOverlay = function(options){// --------------------------------------
 	getContent();//Content
 	getCloseBtn();//Get close button
 	
-	o.onInitialize();		//After it has all been initialized
+	o.onInitialize.call(this);		//After it has all been initialized
 			
 	return this.click(function($e){//For all elements
 		$e.preventDefault();
